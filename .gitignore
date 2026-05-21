@@ -1,0 +1,36 @@
+# Maven / Java build artifacts
+**/target/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Logs
+*.log
+hs_err_pid*
+replay_pid*
+
+# IDE / Editor
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+.factorypath
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage / reports
+coverage/
+site/
+
+# Temp / cache
+*.tmp
+*.swp
+*.swo
+*.bak
