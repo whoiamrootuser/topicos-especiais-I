@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Colors */
+  --colors-primary: #ff5900;
+  --colors-primary-variant: #ffd500;
+  --colors-secondary: #0091ff;
+  --colors-background: #ffffff;
+  --colors-surface: #ffffff;
+  --colors-error: #b00020;
+  --colors-on-primary: #ffffff;
+  --colors-on-secondary: #000000;
+  --colors-on-background: #000000;
+  --colors-on-surface: #000000;
+  --colors-on-error: #ffffff;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Typography */
+  --typography-font-family: 'Roboto', sans-serif;
+  --typography-font-size-body: 16px;
+  --typography-font-size-h1: 96px;
+  --typography-font-size-h2: 60px;
+  --typography-font-weight-regular: 400;
+  --typography-font-weight-medium: 500;
+  --typography-line-height-body: 1.5;
+
+  /* Borders */
+  --borders-radius-sm: 4px;
+  --borders-radius-md: 8px;
+  --borders-radius-lg: 16px;
+  --borders-width-thin: 1px;
+  --borders-width-thick: 2px;
+
+  /* Shadows */
+  --shadows-elevation-1: 0 1px 3px rgba(0,0,0,0.12);
+  --shadows-elevation-2: 0 3px 6px rgba(0,0,0,0.16);
+  --shadows-elevation-3: 0 10px 20px rgba(0,0,0,0.19);
+}
+
+@theme {
+  --color-primary: var(--colors-primary);
+  --color-primary-variant: var(--colors-primary-variant);
+  --color-secondary: var(--colors-secondary);
+  --color-background-token: var(--colors-background);
+  --color-surface: var(--colors-surface);
+  --color-error: var(--colors-error);
+  --color-on-primary: var(--colors-on-primary);
+  --color-on-secondary: var(--colors-on-secondary);
+  --color-on-background: var(--colors-on-background);
+  --color-on-surface: var(--colors-on-surface);
+  --color-on-error: var(--colors-on-error);
+
+  --font-sans: var(--typography-font-family), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* We can specify sizing if we want custom spacing utilities */
+  --spacing-xs: var(--spacing-xs);
+  --spacing-sm: var(--spacing-sm);
+  --spacing-md: var(--spacing-md);
+  --spacing-lg: var(--spacing-lg);
+  --spacing-xl: var(--spacing-xl);
+
+  --radius-xs: var(--borders-radius-sm);
+  --radius-sm: var(--borders-radius-sm);
+  --radius-md: var(--borders-radius-md);
+  --radius-lg: var(--borders-radius-lg);
+
+  --border-width-thin: var(--borders-width-thin);
+  --border-width-thick: var(--borders-width-thick);
+
+  --shadow-elevation-1: var(--shadows-elevation-1);
+  --shadow-elevation-2: var(--shadows-elevation-2);
+  --shadow-elevation-3: var(--shadows-elevation-3);
+  --shadow-sm: var(--shadows-elevation-1);
+  --shadow-md: var(--shadows-elevation-2);
+  --shadow-lg: var(--shadows-elevation-3);
+}
+
+/* Custom styles for the Geometric Balance theme */
+body {
+  font-family: var(--typography-font-family), "Inter", sans-serif;
+  font-size: var(--typography-font-size-body);
+  line-height: var(--typography-line-height-body);
+  background-color: var(--colors-background);
+  color: var(--colors-on-background);
+}
+
+/* Subtle dot-grid background for high-tech geometric accuracy */
+.geometric-grid-bg {
+  background-color: #fafafa;
+  background-image: radial-gradient(circle, #e4e5e7 1px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar for better visual alignment */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+}
+

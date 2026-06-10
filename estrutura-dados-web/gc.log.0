@@ -1,0 +1,25 @@
+[2026-05-28T13:16:07.844-0300][0.003s] CardTable entry size: 512
+[2026-05-28T13:16:07.847-0300][0.006s] Using G1
+[2026-05-28T13:16:07.849-0300][0.008s] Version: 21.0.11+10-LTS (release)
+[2026-05-28T13:16:07.849-0300][0.008s] CPUs: 4 total, 4 available
+[2026-05-28T13:16:07.849-0300][0.008s] Memory: 20003M
+[2026-05-28T13:16:07.849-0300][0.008s] Large Page Support: Disabled
+[2026-05-28T13:16:07.849-0300][0.008s] NUMA Support: Disabled
+[2026-05-28T13:16:07.849-0300][0.008s] Compressed Oops: Enabled (Zero based)
+[2026-05-28T13:16:07.849-0300][0.008s] Heap Region Size: 4M
+[2026-05-28T13:16:07.849-0300][0.008s] Heap Min Capacity: 8M
+[2026-05-28T13:16:07.849-0300][0.008s] Heap Initial Capacity: 316M
+[2026-05-28T13:16:07.849-0300][0.008s] Heap Max Capacity: 5004M
+[2026-05-28T13:16:07.849-0300][0.008s] Pre-touch: Disabled
+[2026-05-28T13:16:07.849-0300][0.008s] Parallel Workers: 4
+[2026-05-28T13:16:07.849-0300][0.008s] Concurrent Workers: 1
+[2026-05-28T13:16:07.849-0300][0.008s] Concurrent Refinement Workers: 4
+[2026-05-28T13:16:07.849-0300][0.008s] Periodic GC: Disabled
+[2026-05-28T13:16:07.855-0300][0.014s] CDS archive(s) mapped at: [0x00007e4843000000-0x00007e4843c9b000-0x00007e4843c9b000), size 13217792, SharedBaseAddress: 0x00007e4843000000, ArchiveRelocationMode: 1.
+[2026-05-28T13:16:07.855-0300][0.014s] Compressed class space mapped at: 0x00007e4844000000-0x00007e4884000000, reserved size: 1073741824
+[2026-05-28T13:16:07.855-0300][0.014s] Narrow klass base: 0x00007e4843000000, Narrow klass shift: 0, Narrow klass range: 0x100000000
+[2026-05-28T13:16:07.907-0300][0.066s] Heap
+[2026-05-28T13:16:07.907-0300][0.066s]  garbage-first heap   total 327680K, used 2548K [0x00000006c7400000, 0x0000000800000000)
+[2026-05-28T13:16:07.907-0300][0.066s]   region size 4096K, 1 young (4096K), 0 survivors (0K)
+[2026-05-28T13:16:07.907-0300][0.066s]  Metaspace       used 385K, committed 576K, reserved 1114112K
+[2026-05-28T13:16:07.907-0300][0.066s]   class space    used 33K, committed 128K, reserved 1048576K
