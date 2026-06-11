@@ -9,103 +9,138 @@ export default function JMHBenchmark() {
 
   const javaCode = `package br.edu.iftm;
 
-import org.openjdk.jmh.annotations.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Random;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Passo 1 - Implementação do Benchmark de Coleções em Java (JMH 1.37)
- * Projeto: IFTM - Campus Uberlândia Centro
- * Disciplina: Estrutura de Dados
- * 
- * Este arquivo usa o parâmetro @Param para forçar tamanhos distintos no mesmo
- * benchmark (isto gera automaticamente 6 linhas no relatório final sem duplicar código).
- */
-@State(Scope.Benchmark)
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Measurement;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
+import org.openjdk.jmh.annotations.Warmup;
+
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 5)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(2)
 public class ColecoesBenchmark {
 
-    @Param({"1000", "10000", "100000"})
-    private int tamanho;
+    // Estado usado para benchmarks que variam tamanho entre 1K, 10K e 100K
+    @State(Scope.Benchmark)
+    public static class GeneralState {
+        @Param({"1000", "10000", "100000"})
+        public int tamanho;
 
-    private ArrayList<Integer> arrayList;
-    private LinkedList<Integer> linkedList;
-    private int elemento;
+        public List<Integer> arrayList;
+        public LinkedList<Integer> linkedList;
 
-    @Setup(Level.Trial)
-    public void setup() {
-        arrayList = new ArrayList<>(tamanho);
-        linkedList = new LinkedList<>();
-        Random random = new Random();
-        elemento = random.nextInt();
+        @Setup(Level.Trial)
+        public void setup() {
+            arrayList = new ArrayList<>();
+            linkedList = new LinkedList<>();
+            for (int i = 0; i < tamanho; i++) {
+                arrayList.add(i);
+                linkedList.add(i);
+            }
+        }
 
-        // Popula as coleções de acordo com o tamanho corrente do @Param
-        for (int i = 0; i < tamanho; i++) {
-            int val = random.nextInt();
-            arrayList.add(val);
-            linkedList.add(val);
+        @TearDown(Level.Invocation)
+        public void tearDown() {
+            // Restaura as listas ao estado inicial após cada invocação do benchmark
+            arrayList.clear();
+            linkedList.clear();
+            for (int i = 0; i < tamanho; i++) {
+                arrayList.add(i);
+                linkedList.add(i);
+            }
         }
     }
 
-    // --- BENCHMARK 1: GET NO MEIO ---
-    @Benchmark
-    public int arrayListGetMeio() {
-        return arrayList.get(tamanho / 2);
-    }
+    // Estado separado para iteração completa — fixo em 100K
+    @State(Scope.Benchmark)
+    public static class IterationState {
+        @Param({"100000"})
+        public int tamanho;
 
-    @Benchmark
-    public int linkedListGetMeio() {
-        return linkedList.get(tamanho / 2);
-    }
+        public List<Integer> arrayList;
+        public LinkedList<Integer> linkedList;
 
-    // --- BENCHMARK 2: ADD NO INÍCIO ---
-    @Benchmark
-    public void arrayListAddInicio() {
-        // Insere na primeira posição (provoca shift dos demais elementos)
-        arrayList.add(0, elemento);
-        // Remove para evitar consumo ilimitado de memória e manter o tamanho estável
-        arrayList.remove(0);
-    }
-
-    @Benchmark
-    public void linkedListAddInicio() {
-        // Insere usando ponteiro direto O(1) na cabeça
-        linkedList.addFirst(elemento);
-        // Remove para manter o tamanho idêntico do setup
-        linkedList.removeFirst();
-    }
-
-    // --- BENCHMARK 3: ITERAÇÃO COMPLETA (Apenas para tamanho 100K) ---
-    @Benchmark
-    public int arrayListIteracao() {
-        // Restrição pedagógica: medir apenas para tamanho 100K
-        if (tamanho != 100000) {
-            return 0;
+        @Setup(Level.Trial)
+        public void setup() {
+            arrayList = new ArrayList<>();
+            linkedList = new LinkedList<>();
+            for (int i = 0; i < tamanho; i++) {
+                arrayList.add(i);
+                linkedList.add(i);
+            }
         }
-        int sum = 0;
-        for (Integer item : arrayList) {
-            sum += item;
+
+        @TearDown(Level.Invocation)
+        public void tearDown() {
+            // Restaura as listas ao estado inicial após cada invocação do benchmark
+            arrayList.clear();
+            linkedList.clear();
+            for (int i = 0; i < tamanho; i++) {
+                arrayList.add(i);
+                linkedList.add(i);
+            }
         }
-        return sum;
+    }
+
+    // --- OPERAÇÃO 1: Acesso ao meio da lista ---
+    @Benchmark
+    public Integer arrayListGetMeio(GeneralState s) {
+        return s.arrayList.get(s.tamanho / 2);
     }
 
     @Benchmark
-    public int linkedListIteracao() {
-        // Restrição pedagógica: medir apenas para tamanho 100K
-        if (tamanho != 100000) {
-            return 0;
+    public Integer linkedListGetMeio(GeneralState s) {
+        return s.linkedList.get(s.tamanho / 2);
+    }
+
+    // --- OPERAÇÃO 2: Inserção no início ---
+    @Benchmark
+    public void arrayListAddInicio(GeneralState s) {
+        s.arrayList.add(0, 999);
+    }
+
+    @Benchmark
+    public void linkedListAddInicio(GeneralState s) {
+        s.linkedList.addFirst(999);
+    }
+
+    // --- OPERAÇÃO 3: Iteração completa (apenas 100K) ---
+    @Benchmark
+    public void arrayListIteracao(IterationState s) {
+        for (Integer elemento : s.arrayList) {
+            int atual = elemento;
         }
-        int sum = 0;
-        for (Integer item : linkedList) {
-            sum += item;
+    }
+
+    @Benchmark
+    public void linkedListIteracao(IterationState s) {
+        for (Integer elemento : s.linkedList) {
+            int atual = elemento;
         }
-        return sum;
+    }
+
+    // Método principal para executar o benchmark direto pela IDE ou terminal
+    public static void main(String[] args) throws Exception {
+        org.openjdk.jmh.runner.options.Options opt = new org.openjdk.jmh.runner.options.OptionsBuilder()
+                .include(ColecoesBenchmark.class.getSimpleName())
+                .build();
+
+        new org.openjdk.jmh.runner.Runner(opt).run();
     }
 }`;
 
